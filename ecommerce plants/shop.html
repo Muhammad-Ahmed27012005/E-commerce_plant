@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenLeaf - Buy Plants Online</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-green: #2e8b57;
+            --dark-green: #1a4d2e;
+            --light-green: #e8f5e9;
+            --black: #1a1a1a;
+            --white: #ffffff;
+            --gray-light: #f5f5f5;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--black);
+        }
+        
+        .hero-banner {
+            background-image: url('https://source.unsplash.com/random/1600x900/?plants,indoor');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .category-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .testimonial-card {
+            background-color: var(--light-green);
+        }
+        
+        .nav-link:hover {
+            color: var(--primary-green);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-green);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-2px);
+        }
+        
+        .quick-view-modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+        }
+        
+        .modal-content {
+            animation: modalopen 0.5s;
+        }
+        
+        @keyframes modalopen {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-banner {
+                height: 60vh;
+            }
+            
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-banner {
+                height: 50vh;
+            }
+            
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Same navigation as index.html -->
+
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="index.html" class="text-2xl font-bold text-green-800 flex items-center">
+                    <i class="fas fa-leaf mr-2"></i> GreenLeaf
+                </a>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="index.html" class="nav-link text-gray-700 hover:text-green-700 font-medium">Home</a>
+                <a href="shop.html" class="nav-link text-gray-700 hover:text-green-700 font-medium">Shop</a>
+                <a href="product.html" class="nav-link text-gray-700 hover:text-green-700 font-medium">Product</a>
+                <a href="cart.html" class="nav-link text-gray-700 hover:text-green-700 font-medium">Cart</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <div class="relative hidden md:block">
+                    <input type="text" placeholder="Search for your favorite plant..." 
+                           class="pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent w-64">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                </div>
+                
+                <a href="#" class="text-gray-700 hover:text-green-700" id="login-btn">
+                    <i class="fas fa-user"></i>
+                </a>
+                
+                <a href="cart.html" class="text-gray-700 hover:text-green-700 relative">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="absolute -top-2 -right-2 bg-green-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                </a>
+                
+                <button class="md:hidden text-gray-700" id="mobile-menu-btn">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-white border-t" id="mobile-menu">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+                <a href="index.html" class="nav-link text-gray-700 hover:text-green-700">Home</a>
+                <a href="shop.html" class="nav-link text-gray-700 hover:text-green-700">Shop</a>
+                <a href="product.html" class="nav-link text-gray-700 hover:text-green-700">Product</a>
+                <a href="cart.html" class="nav-link text-gray-700 hover:text-green-700">Cart</a>
+                <div class="relative">
+                    <input type="text" placeholder="Search for plants..." 
+                           class="pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent w-full">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row">
+                <!-- Filters Sidebar -->
+                <div class="md:w-1/4 lg:w-1/5 pr-0 md:pr-8 mb-8 md:mb-0">
+                    <div class="bg-white p-6 rounded-lg shadow-md sticky top-4">
+                        <h3 class="font-bold text-lg mb-4">Filters</h3>
+                        
+                        <!-- Plant Type Filter -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold mb-3 flex justify-between items-center">
+                                <span>Plant Type</span>
+                                <i class="fas fa-chevron-down text-sm"></i>
+                            </h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="indoor" class="mr-2">
+                                    <label for="indoor">Indoor Plants</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="outdoor" class="mr-2">
+                                    <label for="outdoor">Outdoor Plants</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="succulents" class="mr-2">
+                                    <label for="succulents">Succulents</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="flowering" class="mr-2">
+                                    <label for="flowering">Flowering Plants</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="medicinal" class="mr-2">
+                                    <label for="medicinal">Medicinal Plants</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Pot Size Filter -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold mb-3 flex justify-between items-center">
+                                <span>Pot Size</span>
+                                <i class="fas fa-chevron-down text-sm"></i>
+                            </h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="small" class="mr-2">
+                                    <label for="small">Small (4-6")</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="medium" class="mr-2">
+                                    <label for="medium">Medium (6-8")</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="large" class="mr-2">
+                                    <label for="large">Large (8"+)</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Sunlight Requirement -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold mb-3 flex justify-between items-center">
+                                <span>Sunlight</span>
+                                <i class="fas fa-chevron-down text-sm"></i>
+                            </h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="low-light" class="mr-2">
+                                    <label for="low-light">Low Light</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="indirect" class="mr-2">
+                                    <label for="indirect">Bright Indirect</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="direct" class="mr-2">
+                                    <label for="direct">Direct Sunlight</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Watering Frequency -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold mb-3 flex justify-between items-center">
+                                <span>Watering</span>
+                                <i class="fas fa-chevron-down text-sm"></i>
+                            </h4>
+                            <div class="space-y-2">
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="low-water" class="mr-2">
+                                    <label for="low-water">Low (Every 2-3 weeks)</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="medium-water" class="mr-2">
+                                    <label for="medium-water">Medium (Weekly)</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="high-water" class="mr-2">
+                                    <label for="high-water">High (2-3 times/week)</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Price Range -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold mb-3">Price Range</h4>
+                            <input type="range" min="0" max="100" value="50" class="w-full mb-2">
+                            <div class="flex justify-between text-sm text-gray-600">
+                                <span>$0</span>
+                                <span>$50</span>
+                                <span>$100+</span>
+                            </div>
+                        </div>
+                        
+                        <button class="btn-primary w-full py-2 rounded-md">Apply Filters</button>
+                        <button class="text-green-600 hover:underline mt-2 text-sm">Reset All</button>
+                    </div>
+                </div>
+                
+                <!-- Products Grid -->
+                <div class="md:w-3/4 lg:w-4/5">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+                        <h2 class="text-2xl font-bold mb-4 md:mb-0">All Plants</h2>
+                        
+                        <div class="flex items-center">
+                            <span class="mr-2 text-gray-600">Sort by:</span>
+                            <select class="border rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                <option>Featured</option>
+                                <option>Price: Low to High</option>
+                                <option>Price: High to Low</option>
+                                <option>Most Popular</option>
+                                <option>Newest Arrivals</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Product 1 -->
+                        <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                            <div class="relative">
+                                <img src="1.jpeg" alt="Tulip" class="w-full h-64 object-cover">
+                                <span class="absolute top-2 right-2 bg-green-600 text-white text-xs px-2 py-1 rounded">Best Seller</span>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-lg mb-1">Tulip</h3>
+                                <div class="flex items-center mb-2">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span class="text-gray-600 text-sm ml-2">(42)</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-green-700">$29.99</span>
+                                    <button class="text-gray-700 hover:text-green-600">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                </div>
+                                <button class="btn-primary w-full mt-3 py-2 rounded-md">Add to Cart</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 2 -->
+                        <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                            <div class="relative">
+                                <img src="2.jpeg" alt="Rose flower" class="w-full h-64 object-cover">
+                                <span class="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded">Low Stock</span>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-lg mb-1">Rose flower</h3>
+                                <div class="flex items-center mb-2">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                    <span class="text-gray-600 text-sm ml-2">(36)</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-green-700">$24.99</span>
+                                    <button class="text-gray-700 hover:text-green-600">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                </div>
+                                <button class="btn-primary w-full mt-3 py-2 rounded-md">Add to Cart</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 3 -->
+                        <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                            <div class="relative">
+                                <img src="3.jpeg" alt="Sunflower" class="w-full h-64 object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-lg mb-1">Sunflower</h3>
+                                <div class="flex items-center mb-2">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <span class="text-gray-600 text-sm ml-2">(28)</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-green-700">$39.99</span>
+                                    <button class="text-gray-700 hover:text-green-600">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                </div>
+                                <button class="btn-primary w-full mt-3 py-2 rounded-md">Add to Cart</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 4 -->
+                        <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                            <div class="relative">
+                                <img src="4.jpeg" alt="Daffodils" class="w-full h-64 object-cover">
+                                <span class="absolute top-2 right-2 bg-green-600 text-white text-xs px-2 py-1 rounded">New</span>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-lg mb-1">Daffodils</h3>
+                                <div class="flex items-center mb-2">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span class="text-gray-600 text-sm ml-2">(19)</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-green-700">$14.99</span>
+                                    <button class="text-gray-700 hover:text-green-600">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                </div>
+                                <button class="btn-primary w-full mt-3 py-2 rounded-md">Add to Cart</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 5 -->
+                        <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                            <div class="relative">
+                                <img src="9.jpeg" alt="Golden Pothos" class="w-full h-64 object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-lg mb-1">Golden Pothos</h3>
+                                <div class="flex items-center mb-2">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <span class="text-gray-600 text-sm ml-2">(35)</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-green-700">$19.99</span>
+                                    <button class="text-gray-700 hover:text-green-600">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                </div>
+                                <button class="btn-primary w-full mt-3 py-2 rounded-md">Add to Cart</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 6 -->
+                        <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                            <div class="relative">
+                                <img src="10.jpeg" alt="Peace Lily" class="w-full h-64 object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-lg mb-1">Peace Lily</h3>
+                                <div class="flex items-center mb-2">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span class="text-gray-600 text-sm ml-2">(27)</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-green-700">$22.99</span>
+                                    <button class="text-gray-700 hover:text-green-600">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                </div>
+                                <button class="btn-primary w-full mt-3 py-2 rounded-md">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div class="flex justify-center mt-12">
+                        <nav class="flex items-center space-x-2">
+                            <button class="px-3 py-1 rounded border bg-white text-gray-600 hover:bg-gray-100">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="px-3 py-1 rounded border bg-green-600 text-white">1</button>
+                            <button class="px-3 py-1 rounded border bg-white text-gray-600 hover:bg-gray-100">2</button>
+                            <button class="px-3 py-1 rounded border bg-white text-gray-600 hover:bg-gray-100">3</button>
+                            <span class="px-2">...</span>
+                            <button class="px-3 py-1 rounded border bg-white text-gray-600 hover:bg-gray-100">8</button>
+                            <button class="px-3 py-1 rounded border bg-white text-gray-600 hover:bg-gray-100">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Same footer as index.html -->
+    <!-- Same modals as index.html -->
+    <!-- Same scripts as index.html -->
+         <footer class="bg-gray-900 text-white pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-leaf mr-2"></i> GreenLeaf
+                    </h3>
+                    <p class="mb-4 text-gray-400">Bringing nature into your home with premium quality plants and exceptional service.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Shop</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Plant Care Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Customer Service</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQs</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Shipping Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Returns & Refunds</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+                    <address class="text-gray-400 not-italic">
+                        <p class="mb-2"><i class="fas fa-map-marker-alt mr-2"></i> 123 Green Street, Garden City, GC 10001</p>
+                        <p class="mb-2"><i class="fas fa-phone-alt mr-2"></i> (555) 123-4567</p>
+                        <p class="mb-2"><i class="fas fa-envelope mr-2"></i> hello@greenleaf.com</p>
+                    </address>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2023 GreenLeaf. All rights reserved.</p>
+                <div class="flex items-center space-x-4">
+                    <img src="..." alt="Visa" class="h-8">
+                    <img src="..." alt="Mastercard" class="h-8">
+                    <img src="..." alt="American Express" class="h-8">
+                    <img src="..." alt="PayPal" class="h-8">
+                    <div class="bg-white rounded px-2 py-1">
+                        <span class="text-green-700 text-xs font-bold">SSL SECURE</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden" id="login-modal">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-white rounded-lg shadow-xl p-8 max-w-md w-full relative">
+                <button class="absolute top-4 right-4 text-gray-500 hover:text-gray-700" id="close-login-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+                
+                <h2 class="text-2xl font-bold text-center mb-6">Welcome Back</h2>
+                
+                <form>
+                    <div class="mb-4">
+                        <label for="email" class="block text-gray-700 mb-2">Email Address</label>
+                        <input type="email" id="email" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="password" class="block text-gray-700 mb-2">Password</label>
+                        <input type="password" id="password" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <a href="#" class="text-sm text-green-600 hover:underline mt-1 block">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary w-full py-2 rounded-md mb-4">Login</button>
+                    
+                    <div class="text-center">
+                        <p class="text-gray-600">Don't have an account? <a href="#" class="text-green-600 hover:underline">Register</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick View Modal -->
+    <div class="quick-view-modal" id="quick-view-modal">
+        <div class="modal-content bg-white rounded-lg max-w-4xl w-full mx-auto my-12 overflow-hidden">
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 p-6">
+                    <div class="relative">
+                        <img src="8.jpeg" alt="Monstera Deliciosa" class="w-full rounded-lg">
+                        <button class="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md hover:bg-gray-100" id="close-quick-view">
+                            <i class="fas fa-times text-gray-700"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 p-6">
+                    <h2 class="text-2xl font-bold mb-2">Monstera Deliciosa</h2>
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600">(42 reviews)</span>
+                    </div>
+                    
+                    <p class="text-green-700 font-bold text-xl mb-4">$29.99</p>
+                    
+                    <p class="text-gray-700 mb-4">The Monstera Deliciosa, also known as the Swiss Cheese Plant, is a tropical favorite with its large, glossy leaves that develop unique holes as they mature.</p>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-semibold mb-2">Care Level: <span class="font-normal text-gray-700">Easy</span></h4>
+                        <h4 class="font-semibold mb-2">Light: <span class="font-normal text-gray-700">Bright, indirect light</span></h4>
+                        <h4 class="font-semibold mb-2">Water: <span class="font-normal text-gray-700">When top 2 inches are dry</span></h4>
+                        <h4 class="font-semibold">Pet Friendly: <span class="font-normal text-gray-700">No</span></h4>
+                    </div>
+                    
+                    <div class="flex items-center mb-6">
+                        <div class="flex items-center mr-4">
+                            <button class="bg-gray-200 px-3 py-1 rounded-l-md">-</button>
+                            <span class="border-t border-b border-gray-200 px-4 py-1">1</span>
+                            <button class="bg-gray-200 px-3 py-1 rounded-r-md">+</button>
+                        </div>
+                        <span class="text-green-600"><i class="fas fa-check-circle mr-1"></i> In Stock</span>
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <button class="btn-primary flex-grow py-2 rounded-md">Add to Cart</button>
+                        <button class="border border-green-600 text-green-600 px-4 py-2 rounded-md hover:bg-green-50">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Chat Widget -->
+    <div class="fixed bottom-6 right-6 z-40">
+        <button class="bg-green-600 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:bg-green-700 transition duration-300">
+            <i class="fas fa-comment-dots text-xl"></i>
+        </button>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Login modal toggle
+        document.getElementById('login-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('login-modal').classList.remove('hidden');
+        });
+        
+        document.getElementById('close-login-modal').addEventListener('click', function() {
+            document.getElementById('login-modal').classList.add('hidden');
+        });
+        
+        // Quick view modal toggle (for demo purposes, would be dynamic in real app)
+        const productCards = document.querySelectorAll('.product-card');
+        productCards.forEach(card => {
+            card.addEventListener('click', function() {
+                document.getElementById('quick-view-modal').style.display = 'block';
+            });
+        });
+        
+        document.getElementById('close-quick-view').addEventListener('click', function() {
+            document.getElementById('quick-view-modal').style.display = 'none';
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === document.getElementById('login-modal')) {
+                document.getElementById('login-modal').classList.add('hidden');
+            }
+            if (e.target === document.getElementById('quick-view-modal')) {
+                document.getElementById('quick-view-modal').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

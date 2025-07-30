@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenLeaf - Buy Plants Online</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-green: #2e8b57;
+            --dark-green: #1a4d2e;
+            --light-green: #e8f5e9;
+            --black: #1a1a1a;
+            --white: #ffffff;
+            --gray-light: #f5f5f5;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--black);
+        }
+        
+        .hero-banner {
+            background-image: url('data:image/jpeg;base64,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');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .category-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .testimonial-card {
+            background-color: var(--light-green);
+        }
+        
+        .nav-link:hover {
+            color: var(--primary-green);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-green);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-2px);
+        }
+        
+        .quick-view-modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+        }
+        
+        .modal-content {
+            animation: modalopen 0.5s;
+        }
+        
+        @keyframes modalopen {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-banner {
+                height: 60vh;
+            }
+            
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-banner {
+                height: 50vh;
+            }
+            
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="index.html" class="text-2xl font-bold text-green-800 flex items-center">
+                    <i class="fas fa-leaf mr-2"></i> GreenLeaf
+                </a>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="index.html" class="nav-link text-gray-700 hover:text-green-700 font-medium">Home</a>
+                <a href="shop.html" class="nav-link text-gray-700 hover:text-green-700 font-medium">Shop</a>
+                <a href="product.html" class="nav-link text-gray-700 hover:text-green-700 font-medium">Product</a>
+                <a href="cart.html" class="nav-link text-gray-700 hover:text-green-700 font-medium">Cart</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <div class="relative hidden md:block">
+                    <input type="text" placeholder="Search for your favorite plant..." 
+                           class="pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent w-64">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                </div>
+                
+                <a href="#" class="text-gray-700 hover:text-green-700" id="login-btn">
+                    <i class="fas fa-user"></i>
+                </a>
+                
+                <a href="cart.html" class="text-gray-700 hover:text-green-700 relative">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="absolute -top-2 -right-2 bg-green-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                </a>
+                
+                <button class="md:hidden text-gray-700" id="mobile-menu-btn">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-white border-t" id="mobile-menu">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+                <a href="index.html" class="nav-link text-gray-700 hover:text-green-700">Home</a>
+                <a href="shop.html" class="nav-link text-gray-700 hover:text-green-700">Shop</a>
+                <a href="product.html" class="nav-link text-gray-700 hover:text-green-700">Product</a>
+                <a href="cart.html" class="nav-link text-gray-700 hover:text-green-700">Cart</a>
+                <div class="relative">
+                    <input type="text" placeholder="Search for plants..." 
+                           class="pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent w-full">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home Page Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-banner relative flex items-center justify-center bg-black bg-opacity-40 bg-blend-overlay">
+            <div class="text-center px-4">
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">Bring Nature to Your Home</h1>
+                <p class="text-xl text-white mb-8">Discover our collection of premium plants for every space</p>
+                <a href="shop.html" class="btn-primary inline-block px-8 py-3 text-white rounded-full font-semibold shadow-lg">Shop Now</a>
+            </div>
+        </section>
+
+        <!-- Featured Products -->
+        <section class="py-12 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Featured Plants</h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Product 1 -->
+                    <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                        <div class="relative">
+                            <img src="1.jpeg" alt="Tulip" class="w-full h-64 object-cover">
+                            <span class="absolute top-2 right-2 bg-green-600 text-white text-xs px-2 py-1 rounded">Best Seller</span>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold text-lg mb-1">Tulip</h3>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="text-gray-600 text-sm ml-2">(42)</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-green-700">$29.99</span>
+                                <button class="text-gray-700 hover:text-green-600">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <button class="btn-primary w-full mt-3 py-2 rounded-md">Add to Cart</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 2 -->
+                    <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                        <div class="relative">
+                            <img src="2.jpeg" alt="Rose" class="w-full h-64 object-cover">
+                            <span class="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded">Low Stock</span>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold text-lg mb-1">Rose flower</h3>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="text-gray-600 text-sm ml-2">(36)</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-green-700">$24.99</span>
+                                <button class="text-gray-700 hover:text-green-600">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <button class="btn-primary w-full mt-3 py-2 rounded-md">Add to Cart</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 3 -->
+                    <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                        <div class="relative">
+                            <img src="3.jpeg" alt="Sunflower" class="w-full h-64 object-cover">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold text-lg mb-1">Sunflower</h3>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="text-gray-600 text-sm ml-2">(28)</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-green-700">$39.99</span>
+                                <button class="text-gray-700 hover:text-green-600">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <button class="btn-primary w-full mt-3 py-2 rounded-md">Add to Cart</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 4 -->
+                    <div class="product-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                        <div class="relative">
+                            <img src="4.jpeg" alt="Daffodils" class="w-full h-64 object-cover">
+                            <span class="absolute top-2 right-2 bg-green-600 text-white text-xs px-2 py-1 rounded">New</span>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold text-lg mb-1">Daffodils</h3>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="text-gray-600 text-sm ml-2">(19)</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-green-700">$14.99</span>
+                                <button class="text-gray-700 hover:text-green-600">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                            <button class="btn-primary w-full mt-3 py-2 rounded-md">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="py-12 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Shop by Category</h2>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                    <!-- Indoor Plants -->
+                    <a href="shop.html?category=indoor" class="category-card bg-white rounded-lg shadow-md p-6 text-center transition duration-300 hover:shadow-lg">
+                        <div class="bg-green-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-home text-green-600 text-3xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-lg">Indoor Plants</h3>
+                    </a>
+                    
+                    <!-- Outdoor Plants -->
+                    <a href="shop.html?category=outdoor" class="category-card bg-white rounded-lg shadow-md p-6 text-center transition duration-300 hover:shadow-lg">
+                        <div class="bg-green-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-tree text-green-600 text-3xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-lg">Outdoor Plants</h3>
+                    </a>
+                    
+                    <!-- Succulents -->
+                    <a href="shop.html?category=succulents" class="category-card bg-white rounded-lg shadow-md p-6 text-center transition duration-300 hover:shadow-lg">
+                        <div class="bg-green-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-spa text-green-600 text-3xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-lg">Succulents</h3>
+                    </a>
+                    
+                    <!-- Flowering Plants -->
+                    <a href="shop.html?category=flowering" class="category-card bg-white rounded-lg shadow-md p-6 text-center transition duration-300 hover:shadow-lg">
+                        <div class="bg-green-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-seedling text-green-600 text-3xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-lg">Flowering Plants</h3>
+                    </a>
+                    
+                    <!-- Medicinal Plants -->
+                    <a href="shop.html?category=medicinal" class="category-card bg-white rounded-lg shadow-md p-6 text-center transition duration-300 hover:shadow-lg">
+                        <div class="bg-green-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-leaf text-green-600 text-3xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-lg">Medicinal Plants</h3>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us -->
+        <section class="py-12 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Why Choose GreenLeaf</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="text-center p-6">
+                        <div class="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-recycle text-green-600 text-2xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-lg mb-2">Eco-Friendly</h3>
+                        <p class="text-gray-600">We use sustainable packaging and eco-conscious growing practices.</p>
+                    </div>
+                    
+                    <div class="text-center p-6">
+                        <div class="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-headset text-green-600 text-2xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-lg mb-2">Expert Support</h3>
+                        <p class="text-gray-600">Our plant specialists are available to help with any questions.</p>
+                    </div>
+                    
+                    <div class="text-center p-6">
+                        <div class="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-truck text-green-600 text-2xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-lg mb-2">Free Delivery</h3>
+                        <p class="text-gray-600">Free shipping on all orders over $50 nationwide.</p>
+                    </div>
+                    
+                    <div class="text-center p-6">
+                        <div class="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-heart text-green-600 text-2xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-lg mb-2">Healthy Plants</h3>
+                        <p class="text-gray-600">We carefully select and inspect every plant before shipping.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="py-12 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">What Our Customers Say</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="testimonial-card rounded-lg p-6 shadow-md">
+                        <div class="flex items-center mb-4">
+                            <img src="5.jpg" alt="Ahmed" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <h4 class="font-semibold">Ahmed</h4>
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-700">"My Monstera arrived in perfect condition and has been thriving! The care instructions were very helpful. Will definitely order again."</p>
+                    </div>
+                    
+                    <div class="testimonial-card rounded-lg p-6 shadow-md">
+                        <div class="flex items-center mb-4">
+                            <img src="6.jpg" alt="Tanzeel" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <h4 class="font-semibold">Tanzeel</h4>
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-700">"Great selection of succulents at reasonable prices. Packaging was eco-friendly and plants were healthy. Highly recommend!"</p>
+                    </div>
+                    
+                    <div class="testimonial-card rounded-lg p-6 shadow-md">
+                        <div class="flex items-center mb-4">
+                            <img src="7.jpg" alt="Snow White" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <h4 class="font-semibold">Snow White</h4>
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-700">"The customer service is exceptional. They helped me choose the perfect plants for my low-light apartment. Very happy with my purchase!"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter -->
+        <section class="py-12 bg-green-700 text-white">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl font-bold mb-4">Join Our Green Community</h2>
+                <p class="text-lg mb-8 max-w-2xl mx-auto">Subscribe to our newsletter for plant care tips, exclusive offers, and new arrivals.</p>
+                
+                <form class="max-w-md mx-auto flex">
+                    <input type="email" placeholder="Your email address" 
+                           class="flex-grow px-4 py-3 rounded-l-md focus:outline-none text-gray-800">
+                    <button type="submit" class="bg-green-900 hover:bg-green-800 px-6 py-3 rounded-r-md font-semibold">
+                        Get Plant Care Tips & Offers
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-leaf mr-2"></i> GreenLeaf
+                    </h3>
+                    <p class="mb-4 text-gray-400">Bringing nature into your home with premium quality plants and exceptional service.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="shop.html" class="text-gray-400 hover:text-white">Shop</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-white">Contact</a></li>
+                        <li><a href="blog.html" class="text-gray-400 hover:text-white">Plant Care Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Customer Service</h3>
+                    <ul class="space-y-2">
+                        <li><a href="faq.html" class="text-gray-400 hover:text-white">FAQs</a></li>
+                        <li><a href="shipping.html" class="text-gray-400 hover:text-white">Shipping Policy</a></li>
+                        <li><a href="returns.html" class="text-gray-400 hover:text-white">Returns & Refunds</a></li>
+                        <li><a href="privacy.html" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+                    <address class="text-gray-400 not-italic">
+                        <p class="mb-2"><i class="fas fa-map-marker-alt mr-2"></i> 123 Green Street, Garden City, GC 10001</p>
+                        <p class="mb-2"><i class="fas fa-phone-alt mr-2"></i> (555) 123-4567</p>
+                        <p class="mb-2"><i class="fas fa-envelope mr-2"></i> hello@greenleaf.com</p>
+                    </address>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2023 GreenLeaf. All rights reserved.</p>
+                <div class="flex items-center space-x-4">
+                    <img src="https://via.placeholder.com/50x30?text=Visa" alt="Visa" class="h-8">
+                    <img src="https://via.placeholder.com/50x30?text=MC" alt="Mastercard" class="h-8">
+                    <img src="https://via.placeholder.com/50x30?text=Amex" alt="American Express" class="h-8">
+                    <img src="https://via.placeholder.com/50x30?text=PayPal" alt="PayPal" class="h-8">
+                    <div class="bg-white rounded px-2 py-1">
+                        <span class="text-green-700 text-xs font-bold">SSL SECURE</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden" id="login-modal">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-white rounded-lg shadow-xl p-8 max-w-md w-full relative">
+                <button class="absolute top-4 right-4 text-gray-500 hover:text-gray-700" id="close-login-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+                
+                <h2 class="text-2xl font-bold text-center mb-6">Welcome Back</h2>
+                
+                <form>
+                    <div class="mb-4">
+                        <label for="email" class="block text-gray-700 mb-2">Email Address</label>
+                        <input type="email" id="email" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="password" class="block text-gray-700 mb-2">Password</label>
+                        <input type="password" id="password" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <a href="#" class="text-sm text-green-600 hover:underline mt-1 block">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary w-full py-2 rounded-md mb-4">Login</button>
+                    
+                    <div class="text-center">
+                        <p class="text-gray-600">Don't have an account? <a href="#" class="text-green-600 hover:underline">Register</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick View Modal -->
+    <div class="quick-view-modal" id="quick-view-modal">
+        <div class="modal-content bg-white rounded-lg max-w-4xl w-full mx-auto my-12 overflow-hidden">
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 p-6">
+                    <div class="relative">
+                        <img src="8.jpeg" alt="Monstera Deliciosa" class="w-full rounded-lg">
+                        <button class="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md hover:bg-gray-100" id="close-quick-view">
+                            <i class="fas fa-times text-gray-700"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 p-6">
+                    <h2 class="text-2xl font-bold mb-2">Monstera Deliciosa</h2>
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600">(42 reviews)</span>
+                    </div>
+                    
+                    <p class="text-green-700 font-bold text-xl mb-4">$29.99</p>
+                    
+                    <p class="text-gray-700 mb-4">The Monstera Deliciosa, also known as the Swiss Cheese Plant, is a tropical favorite with its large, glossy leaves that develop unique holes as they mature.</p>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-semibold mb-2">Care Level: <span class="font-normal text-gray-700">Easy</span></h4>
+                        <h4 class="font-semibold mb-2">Light: <span class="font-normal text-gray-700">Bright, indirect light</span></h4>
+                        <h4 class="font-semibold mb-2">Water: <span class="font-normal text-gray-700">When top 2 inches are dry</span></h4>
+                        <h4 class="font-semibold">Pet Friendly: <span class="font-normal text-gray-700">No</span></h4>
+                    </div>
+                    
+                    <div class="flex items-center mb-6">
+                        <div class="flex items-center mr-4">
+                            <button class="bg-gray-200 px-3 py-1 rounded-l-md">-</button>
+                            <span class="border-t border-b border-gray-200 px-4 py-1">1</span>
+                            <button class="bg-gray-200 px-3 py-1 rounded-r-md">+</button>
+                        </div>
+                        <span class="text-green-600"><i class="fas fa-check-circle mr-1"></i> In Stock</span>
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <button class="btn-primary flex-grow py-2 rounded-md">Add to Cart</button>
+                        <button class="border border-green-600 text-green-600 px-4 py-2 rounded-md hover:bg-green-50">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Chat Widget -->
+    <div class="fixed bottom-6 right-6 z-40">
+        <button class="bg-green-600 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:bg-green-700 transition duration-300">
+            <i class="fas fa-comment-dots text-xl"></i>
+        </button>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Login modal toggle
+        document.getElementById('login-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('login-modal').classList.remove('hidden');
+        });
+        
+        document.getElementById('close-login-modal').addEventListener('click', function() {
+            document.getElementById('login-modal').classList.add('hidden');
+        });
+        
+        // Quick view modal toggle (for demo purposes, would be dynamic in real app)
+        const productCards = document.querySelectorAll('.product-card');
+        productCards.forEach(card => {
+            card.addEventListener('click', function() {
+                document.getElementById('quick-view-modal').style.display = 'block';
+            });
+        });
+        
+        document.getElementById('close-quick-view').addEventListener('click', function() {
+            document.getElementById('quick-view-modal').style.display = 'none';
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === document.getElementById('login-modal')) {
+                document.getElementById('login-modal').classList.add('hidden');
+            }
+            if (e.target === document.getElementById('quick-view-modal')) {
+                document.getElementById('quick-view-modal').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
